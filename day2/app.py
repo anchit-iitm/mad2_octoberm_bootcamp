@@ -15,6 +15,8 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite3'
 
 app.config['SECRET_KEY'] = 'super-secret'
+app.config['SECURITY_REGISTERABLE'] = True
+app.config['SECURITY_PASSWORD_SALT'] = 'salt'
 
 db = SQLAlchemy(app)
 
