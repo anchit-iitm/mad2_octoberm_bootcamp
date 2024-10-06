@@ -17,12 +17,9 @@ def create_app():
     from flask_security import Security # pip install flask_security
     security = Security(init_app, user_datastore)
 
-    from flask_restful import Api
-    init_api = Api(init_app)
+    return init_app
 
-    return init_app, init_api
-
-app, api = create_app()
+app = create_app()
 
 @app.route('/test', methods=['GET', 'POST'])
 def test1():
@@ -60,9 +57,52 @@ def postjson():
     db.session.commit()
     return {"status": "success"}
 
-from routes.auth import register, login
-api.add_resource(register, '/signup')
-api.add_resource(login, '/signin')
+@app.route('/signup', methods=['POST'])
+def register():
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+    role = data.get('role') # if role is a string
+
+    if not email:
+        return {"status": "email is required"}, 400
+    if not password:
+        return {"status": "password is required"}, 400
+    if not role:
+        return {"status": "role is required"}, 400
+    
+    if role == "admin":
+        return {"status": "role cannot be admin"}, 400
+    
+    if not user_datastore.find_user(email=email):
+        # from flask_security import hash_password
+        # hashed_password = hash_password(password)
+        new_user = user_datastore.create_user(email=email, password=password, roles=[role])
+        # user_datastore.add_role_to_user(new_user, role)
+        if role == "manager":
+            user_datastore.deactivate_user(new_user)    
+        db.session.commit()
+        return {"status": "success"}, 201
+    return {"status": "user already exists"}, 400
+
+@app.route('/signin', methods=['POST'])
+def login():
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+
+    if not email:
+        return {"status": "email is required"}, 400
+    if not password:
+        return {"status": "password is required"}, 400
+    
+    user = user_datastore.find_user(email=email)
+    if user:
+        if user.password == password: # from flask_security import verify_password / verify_password(password, user.password)
+            token = user.get_auth_token()
+            return {"status": "login successfully", "authToken": token}, 200
+        return {"status": "password is incorrect"}, 400
+    return {"status": "email doesnt exists"}, 400
 
 # get is to send data from backend to frontend  /  whenever we hit a url in the browser, it is a get request
 # post is to send data from frontend to backend
