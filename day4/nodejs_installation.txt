@@ -7,3 +7,11 @@ nvm install 20
 node -v # should print `v20.18.0`
 # verifies the right npm version is in the environment
 npm -v # should print `10.8.2`
+-------------------------------------------------------------------------------------------
+
+
+
+npm is different from nvm
+
+cmd to install vue cli (optional), npm install -g @vue/cli
+vue create ~frontend_folder_name~ / vue create hello-world
