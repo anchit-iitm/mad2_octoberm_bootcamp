@@ -64,6 +64,10 @@ from routes.auth import register, login
 api.add_resource(register, '/signup')
 api.add_resource(login, '/signin')
 
+from routes.test import test, version2
+api.add_resource(test, '/api/test')
+api.add_resource(version2, '/api/version2')
+
 # get is to send data from backend to frontend  /  whenever we hit a url in the browser, it is a get request
 # post is to send data from frontend to backend
 # put is to update data in the backend from frontend  / patch is similar to put
