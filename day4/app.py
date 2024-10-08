@@ -20,6 +20,9 @@ def create_app():
     from flask_restful import Api
     init_api = Api(init_app)
 
+    from flask_cors import CORS
+    CORS(init_app)
+
     return init_app, init_api
 
 app, api = create_app()

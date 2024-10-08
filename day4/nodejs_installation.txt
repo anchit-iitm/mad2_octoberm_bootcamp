@@ -9,9 +9,14 @@ node -v # should print `v20.18.0`
 npm -v # should print `10.8.2`
 -------------------------------------------------------------------------------------------
 
+for windows installation please use the installer from the nodejs site to complete the installation
 
 
 npm is different from nvm
 
 cmd to install vue cli (optional), npm install -g @vue/cli
 vue create ~frontend_folder_name~ / vue create hello-world
+
+
+for vite - npm create vite@latest, so select vue from the options
+for vuejs - npm create vue@latest
