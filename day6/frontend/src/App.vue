@@ -7,6 +7,7 @@
     <router-link to="/about">About</router-link> |
     <router-link to="/signup">Signup</router-link> |
     <router-link to="/create">create</router-link> |
+    <router-link :to="{name: 'search'}">search</router-link> |
     <a @click="this.logout()">logout</a>
   </nav>
   <router-view/>

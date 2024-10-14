@@ -66,7 +66,7 @@ class Category(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, onupdate=datetime.now())
     delete = db.Column(db.Boolean, default=False)
-    products = db.relationship('Product', back_populates='category', lazy=True)
+    products = db.relationship('Product', back_populates='category', lazy=True) # not a requirement, totaly upto you how you want to implement
 
     def serialize(self):
         return {
@@ -79,7 +79,7 @@ class Category(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             'delete': self.delete,
-            'products': [product.serialize() for product in self.products] if self.products else 'No products found'
+            'products': [product.serialize() for product in self.products] if self.products else 'No products found' # not a requirement
         }
     
     def get_all():

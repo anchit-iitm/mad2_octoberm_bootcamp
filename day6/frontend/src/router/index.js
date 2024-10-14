@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
 import TestView from '../views/test.vue'
 import LoginView from '../views/LoginView.vue'
+import searchView from '../views/search.vue'
 
 const routes = [
   // {
@@ -37,6 +38,16 @@ const routes = [
     path: '/create',
     name: 'create',
     component: () => import('@/views/create.vue')
+  },
+  {
+    path: '/update/:id', // /api/category/<int:id>
+    name: 'update',
+    component: () => import('@/views/update.vue'),
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: searchView
   }
 ]
 

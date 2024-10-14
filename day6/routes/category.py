@@ -46,8 +46,11 @@ class CategoryResource(Resource):
     @roles_accepted('admin', 'manager', 'customer')
     def get(self):
         category = Category.query.all()
-        data = [categories.serialize() for categories in category]
+        data = [row.serialize() for row in category if row.delete == False]
+        # data = [row.serialize() for row in category if row.delete == False]
         '''for categories in category:
+            if not categories.delete:
+            if categories.delete == False:
             cate = {
                     'id': categories.id,
                     'name': categories.name,
@@ -114,7 +117,14 @@ class CategorySpecific(Resource):
         categories.delete = True
         db.session.commit()
         return make_response(jsonify({"message": "delete specific category", 'id': id}), 201)
-    
+
+
+class searchCategory(Resource):
+    def post(self):
+        data = request.get_json()
+        name = data['name']
+        # ilike with you have to quesry the db, and then filter, end envetually we have to return the json object
+   
 # id in the body, json object
 class newCategorySpecific(Resource):
     # @app.route('/category/<int:id>', methods=['GET', 'POST'])

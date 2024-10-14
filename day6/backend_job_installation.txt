@@ -1,0 +1,27 @@
+redis:
+needing redis-server, sudo apt install redis-server -y, for linux, for windows get it from the redis website, exe will be there
+lib: pip install redis, this py-lib is needed to interact with the redis-server
+
+optional gui, redis-insight is similar for db-browser, you can install it in windows and have redis server on wsl, still it would work because the redis-server will he host on the localhost:6137
+
+
+celery:
+linux, pip install celery
+
+mail:
+pip install flask_mail, for generatig the mail 
+
+local dev smtp server:
+mailhog/mailpit: 
+mailhog git repo: https://github.com/mailhog/MailHog
+mailhog instl cmd: 
+sudo apt-get -y install golang-go
+go install github.com/mailhog/MailHog@latest
+
+mailpit repo: https://github.com/axllent/mailpit
+mailpit instl cmd: 
+sudo bash < <(curl -sL https://raw.githubusercontent.com/axllent/mailpit/develop/install.sh)
+
+caching: 
+we will be using redis to store the cached data
+the lib to create the cache is flask-caching, pip install flask_caching
